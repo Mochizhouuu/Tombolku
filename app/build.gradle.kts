@@ -20,18 +20,10 @@ val keyAliasName = System.getenv("KEY_ALIAS")
 val keyPassWord = System.getenv("KEY_PASSWORD")
     ?: keystoreProps.getProperty("keyPassword")
 
-println("=== SIGNING DEBUG ===")
-println("KEYSTORE_FILE: ${keyStoreFile}")
-println("KEYSTORE_PASSWORD: ${keyStorePassword?.let { "set (${it.length} chars)" } ?: "null"}")
-println("KEY_ALIAS: ${keyAliasName}")
-println("KEY_PASSWORD: ${keyPassWord?.let { "set (${it.length} chars)" } ?: "null"}")
-
 val hasSigning = !keyStoreFile.isNullOrEmpty() &&
     !keyStorePassword.isNullOrEmpty() &&
     !keyAliasName.isNullOrEmpty() &&
     !keyPassWord.isNullOrEmpty()
-
-println("HAS_SIGNING: $hasSigning")
 
 android {
     namespace = "com.tombolku.app"
