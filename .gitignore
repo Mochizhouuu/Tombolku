@@ -9,4 +9,5 @@ build/
 *.jks
 *.keystore
 keystore.properties
+!keystore.properties
 *.b64
