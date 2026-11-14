@@ -12,6 +12,7 @@ import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import kotlin.math.abs
+import kotlin.math.coerceIn
 import kotlin.math.max
 
 class TombolkuService : AccessibilityService() {
