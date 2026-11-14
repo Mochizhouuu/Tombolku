@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#121212</color>
+    <color name="panel_bg">#CC1E1E1E</color>
+    <color name="fab_bg">#E61E1E1E</color>
+    <color name="icon_bg">#33FFFFFF</color>
+    <color name="icon_fg">#FFFFFF</color>
+    <color name="accent">#4CAF50</color>
+    <color name="ripple">#664CAF50</color>
+    <color name="status_on">#4CAF50</color>
+    <color name="status_off">#E53935</color>
+    <color name="text_primary">#ECECEC</color>
+    <color name="text_secondary">#9E9E9E</color>
+    <color name="ic_launcher_background">#1E1E1E</color>
+</resources>

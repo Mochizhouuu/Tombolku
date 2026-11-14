@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tombolku</string>
+    <string name="title">Tombolku</string>
+    <string name="subtitle">Aktifkan layanan untuk mulai</string>
+    <string name="open_settings">Buka Pengaturan Aksesibilitas</string>
+    <string name="status_on">Layanan aktif</string>
+    <string name="status_off">Layanan nonaktif</string>
+    <string name="service_summary">Tombolku: pengganti tombol power dan volume</string>
+    <string name="service_desc">Menampilkan tombol melayang untuk mengunci layar, membuka menu power, dan mengatur volume.</string>
+    <string name="fab_desc">Tombol melayang Tombolku</string>
+    <string name="action_lock">Kunci layar</string>
+    <string name="action_power">Menu power</string>
+    <string name="action_vol_up">Volume naik</string>
+    <string name="action_vol_down">Volume turun</string>
+    <string name="action_mute">Bisu</string>
+    <string name="action_close">Tutup panel</string>
+</resources>
