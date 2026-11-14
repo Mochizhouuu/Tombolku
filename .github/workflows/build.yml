@@ -23,8 +23,8 @@ jobs:
 
       - name: Decode keystore
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > $RUNNER_TEMP/release.jks
-          echo "KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> $GITHUB_ENV
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > $RUNNER_TEMP/Tombolku.jks
+          echo "KEYSTORE_FILE=$RUNNER_TEMP/Tombolku.jks" >> $GITHUB_ENV
 
       - name: Make gradlew executable
         run: chmod +x gradlew
