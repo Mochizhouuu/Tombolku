@@ -18,15 +18,20 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Decode keystore
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build debug APK (test)
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Decode keystore for release
+        if: secrets.KEYSTORE_BASE64 != ''
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > $RUNNER_TEMP/Tombolku.jks
           ls -la $RUNNER_TEMP/Tombolku.jks
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: Build release APK
+        if: secrets.KEYSTORE_BASE64 != ''
         env:
           KEYSTORE_FILE: ${{ runner.temp }}/Tombolku.jks
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -34,12 +39,19 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew assembleRelease --no-daemon --stacktrace
 
-      - name: List APK outputs
+      - name: List all APKs
         run: find app/build/outputs -name "*.apk" -exec ls -la {} \;
 
-      - name: Upload APK
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: tombolku-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
+
+      - name: Upload release APK
         uses: actions/upload-artifact@v6
         with:
           name: tombolku-release
           path: app/build/outputs/apk/release/*.apk
-          if-no-files-found: error
+          if-no-files-found: warn
