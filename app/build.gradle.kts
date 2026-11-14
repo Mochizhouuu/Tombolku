@@ -11,6 +11,11 @@ val keystoreProps = Properties().apply {
     if (f.exists()) FileInputStream(f).use { load(it) }
 }
 
+val hasReleaseSigning = System.getenv("KEYSTORE_FILE")?.isNotBlank() == true &&
+    System.getenv("KEY_ALIAS")?.isNotBlank() == true &&
+    System.getenv("KEYSTORE_PASSWORD")?.isNotBlank() == true &&
+    System.getenv("KEY_PASSWORD")?.isNotBlank() == true
+
 android {
     namespace = "com.tombolku.app"
     compileSdk = 34
@@ -24,17 +29,12 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            val storeFilePath = System.getenv("KEYSTORE_FILE")
-                ?: keystoreProps.getProperty("storeFile")
-            if (!storeFilePath.isNullOrBlank()) {
-                storeFile = file(storeFilePath)
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = file(System.getenv("KEYSTORE_FILE"))
                 storePassword = System.getenv("KEYSTORE_PASSWORD")
-                    ?: keystoreProps.getProperty("storePassword")
                 keyAlias = System.getenv("KEY_ALIAS")
-                    ?: keystoreProps.getProperty("keyAlias")
                 keyPassword = System.getenv("KEY_PASSWORD")
-                    ?: keystoreProps.getProperty("keyPassword")
             }
         }
     }
@@ -42,7 +42,12 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (hasReleaseSigning) {
+                signingConfigs.getByName("release")
+            } else {
+                println("::warning::Release signing belum disiapkan, memakai debug key")
+                signingConfigs.getByName("debug")
+            }
         }
     }
 

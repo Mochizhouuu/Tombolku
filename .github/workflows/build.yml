@@ -29,6 +29,26 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
+      - name: Validate secrets
+        run: |
+          if [ -z "${{ secrets.KEYSTORE_BASE64 }}" ]; then
+            echo "ERROR: Secret KEYSTORE_BASE64 belum diset!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.KEY_ALIAS }}" ]; then
+            echo "ERROR: Secret KEY_ALIAS belum diset!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.KEYSTORE_PASSWORD }}" ]; then
+            echo "ERROR: Secret KEYSTORE_PASSWORD belum diset!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.KEY_PASSWORD }}" ]; then
+            echo "ERROR: Secret KEY_PASSWORD belum diset!"
+            exit 1
+          fi
+          echo "Semua secret signing sudah terpasang."
+
       - name: Build release APK
         env:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
