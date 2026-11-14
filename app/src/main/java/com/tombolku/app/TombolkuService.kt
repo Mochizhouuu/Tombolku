@@ -23,7 +23,7 @@ class TombolkuService : AccessibilityService() {
     private lateinit var fab: View
     private lateinit var panel: View
 
-    private var panelOpen = false
+    private var panelOpen = false // panel state
     private var viewAdded = false
 
     private val prefs by lazy { getSharedPreferences("tombolku", Context.MODE_PRIVATE) }
