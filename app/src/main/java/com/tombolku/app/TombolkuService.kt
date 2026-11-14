@@ -132,8 +132,8 @@ class TombolkuService : AccessibilityService() {
         val metrics = resources.displayMetrics
         val maxX = max(0f, (metrics.widthPixels - fab.width).toFloat())
         val maxY = max(0f, (metrics.heightPixels - fab.height).toFloat())
-        fab.translationX = x.coerceIn(0f, maxX)
-        fab.translationY = y.coerceIn(0f, maxY)
+        fab.translationX = x.toFloat().coerceIn(0f, maxX)
+        fab.translationY = y.toFloat().coerceIn(0f, maxY)
     }
 
     private fun saveFabPosition() {
@@ -175,8 +175,8 @@ class TombolkuService : AccessibilityService() {
             if (y + ph > metrics.heightPixels - margin) {
                 y = fab.translationY - ph - margin
             }
-            x = x.coerceIn(margin, max(margin, metrics.widthPixels - pw - margin))
-            y = y.coerceIn(margin, max(margin, metrics.heightPixels - ph - margin))
+            x = x.toFloat().coerceIn(margin, max(margin, metrics.widthPixels - pw - margin))
+            y = y.toFloat().coerceIn(margin, max(margin, metrics.heightPixels - ph - margin))
             panel.translationX = x
             panel.translationY = y
         }
