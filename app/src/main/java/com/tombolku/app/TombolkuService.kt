@@ -12,7 +12,6 @@ import android.view.ViewConfiguration
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import kotlin.math.abs
-import kotlin.math.coerceIn
 import kotlin.math.max
 
 class TombolkuService : AccessibilityService() {
@@ -132,8 +131,8 @@ class TombolkuService : AccessibilityService() {
         val metrics = resources.displayMetrics
         val maxX = max(0f, (metrics.widthPixels - fab.width).toFloat())
         val maxY = max(0f, (metrics.heightPixels - fab.height).toFloat())
-        fab.translationX = x.toFloat().coerceIn(0f, maxX)
-        fab.translationY = y.toFloat().coerceIn(0f, maxY)
+        fab.translationX = if (x < 0f) 0f else if (x > maxX) maxX else x
+        fab.translationY = if (y < 0f) 0f else if (y > maxY) maxY else y
     }
 
     private fun saveFabPosition() {
@@ -175,8 +174,8 @@ class TombolkuService : AccessibilityService() {
             if (y + ph > metrics.heightPixels - margin) {
                 y = fab.translationY - ph - margin
             }
-            x = x.toFloat().coerceIn(margin, max(margin, metrics.widthPixels - pw - margin))
-            y = y.toFloat().coerceIn(margin, max(margin, metrics.heightPixels - ph - margin))
+            x = if (x < margin) margin else if (x > (metrics.widthPixels - pw - margin)) (metrics.widthPixels - pw - margin).toFloat() else x
+            y = if (y < margin) margin else if (y > (metrics.heightPixels - ph - margin)) (metrics.heightPixels - ph - margin).toFloat() else y
             panel.translationX = x
             panel.translationY = y
         }
