@@ -44,3 +44,9 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tail -100
           echo "Exit code: $?"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: tombolku-release
+          path: app/build/outputs/apk/release/*.apk
