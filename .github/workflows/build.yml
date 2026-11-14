@@ -18,6 +18,13 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Set Android SDK location
+        run: |
+          echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+          ls /usr/local/lib/android/sdk/build-tools/ 2>/dev/null || echo "No build-tools found"
+          ls /usr/local/lib/android/sdk/platforms/ 2>/dev/null || echo "No platforms found"
+
       - name: Decode keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > $RUNNER_TEMP/release.jks
