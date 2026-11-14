@@ -54,6 +54,13 @@ class TombolkuService : AccessibilityService() {
         setupPanelActions()
         setupFabDrag()
         restoreFabPosition()
+        // Set initial position to right side, middle of screen
+        fab.post {
+            val metrics = resources.displayMetrics
+            val x = metrics.widthPixels - fab.width - dp(16)
+            val y = (metrics.heightPixels / 2) - fab.height / 2
+            moveFabTo(x.toFloat(), y.toFloat())
+        }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {}
