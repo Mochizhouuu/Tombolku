@@ -15,21 +15,21 @@ val keyStoreFile = System.getenv("KEYSTORE_FILE")
     ?: keystoreProps.getProperty("storeFile")
 val keyStorePassword = System.getenv("KEYSTORE_PASSWORD")
     ?: keystoreProps.getProperty("storePassword")
-val keyAlias = System.getenv("KEY_ALIAS")
+val keyAliasName = System.getenv("KEY_ALIAS")
     ?: keystoreProps.getProperty("keyAlias")
-val keyPassword = System.getenv("KEY_PASSWORD")
+val keyPassWord = System.getenv("KEY_PASSWORD")
     ?: keystoreProps.getProperty("keyPassword")
 
 println("=== SIGNING DEBUG ===")
 println("KEYSTORE_FILE: ${keyStoreFile}")
 println("KEYSTORE_PASSWORD: ${keyStorePassword?.let { "set (${it.length} chars)" } ?: "null"}")
-println("KEY_ALIAS: ${keyAlias}")
-println("KEY_PASSWORD: ${keyPassword?.let { "set (${it.length} chars)" } ?: "null"}")
+println("KEY_ALIAS: ${keyAliasName}")
+println("KEY_PASSWORD: ${keyPassWord?.let { "set (${it.length} chars)" } ?: "null"}")
 
 val hasSigning = !keyStoreFile.isNullOrEmpty() &&
     !keyStorePassword.isNullOrEmpty() &&
-    !keyAlias.isNullOrEmpty() &&
-    !keyPassword.isNullOrEmpty()
+    !keyAliasName.isNullOrEmpty() &&
+    !keyPassWord.isNullOrEmpty()
 
 println("HAS_SIGNING: $hasSigning")
 
@@ -50,8 +50,8 @@ android {
             create("release") {
                 storeFile = file(keyStoreFile)
                 storePassword = keyStorePassword
-                keyAlias = keyAlias
-                keyPassword = keyPassword
+                keyAlias = keyAliasName
+                keyPassword = keyPassWord
             }
         }
     }
