@@ -20,6 +20,12 @@ val keyAlias = System.getenv("KEY_ALIAS")
 val keyPassword = System.getenv("KEY_PASSWORD")
     ?: keystoreProps.getProperty("keyPassword")
 
+val hasSigning = keyStoreFile != null &&
+    keyStorePassword != null &&
+    keyAlias != null &&
+    keyPassword != null &&
+    file(keyStoreFile).exists()
+
 android {
     namespace = "com.tombolku.app"
     compileSdk = 34
@@ -33,18 +39,25 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = file(keyStoreFile)
-            storePassword = keyStorePassword
-            keyAlias = keyAlias
-            keyPassword = keyPassword
+        if (hasSigning) {
+            create("release") {
+                storeFile = file(keyStoreFile)
+                storePassword = keyStorePassword
+                keyAlias = keyAlias
+                keyPassword = keyPassword
+            }
         }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = if (hasSigning) {
+                signingConfigs.getByName("release")
+            } else {
+                println("::warning::Signing tidak tersedia, menggunakan debug key")
+                signingConfigs.getByName("debug")
+            }
         }
     }
 
