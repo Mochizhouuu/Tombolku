@@ -21,15 +21,26 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: Decode keystore
+        if: secrets.KEYSTORE_BASE64 != ''
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > $RUNNER_TEMP/Tombolku.jks
+          ls -la $RUNNER_TEMP/Tombolku.jks
+
       - name: Build
-        run: ./gradlew assemble --no-daemon --stacktrace
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/Tombolku.jks
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: List outputs
         run: find app/build/outputs -type f -name "*.apk" | xargs ls -la
 
-      - name: Upload APKs
+      - name: Upload APK
         uses: actions/upload-artifact@v6
         with:
-          name: tombolku-apks
-          path: app/build/outputs/apk/**/*.apk
+          name: tombolku-release
+          path: app/build/outputs/apk/release/*.apk
           if-no-files-found: error
