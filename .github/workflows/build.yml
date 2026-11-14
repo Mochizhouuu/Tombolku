@@ -42,11 +42,14 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           chmod +x ./gradlew
-          ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tail -100
-          echo "Exit code: $?"
+          ./gradlew assembleRelease --no-daemon --stacktrace
+          echo "Build completed, checking output:"
+          ls -la app/build/outputs/apk/release/ 2>/dev/null || echo "No APK found in expected location"
+          find app/build/outputs -name "*.apk" 2>/dev/null | head -5
 
       - name: Upload APK
         uses: actions/upload-artifact@v6
         with:
           name: tombolku-release
           path: app/build/outputs/apk/release/*.apk
+          if-no-files-found: warn
