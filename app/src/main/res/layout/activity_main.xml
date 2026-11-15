@@ -62,7 +62,6 @@
         android:background="#1A1A1A"
         android:fontFamily="monospace"
         android:padding="8dp"
-        android:text="@string/diag_line"
         android:textColor="#8A8A8A"
         android:textIsSelectable="true"
         android:textSize="11sp" />
