@@ -13,6 +13,7 @@
     <string name="status_connected">Layanan tersambung</string>
     <string name="status_enabled_not_connected">Layanan aktif tapi gagal tersambung — coba matikan lalu aktifkan lagi</string>
     <string name="status_off">Layanan nonaktif</string>
+    <string name="diag_line">Diag: %1$s</string>
     <string name="service_summary">Tombolku: pengganti tombol power dan volume</string>
     <string name="service_desc">Menampilkan panel kontrol untuk mengunci layar, membuka menu power, dan mengatur volume dari ubin Quick Settings.</string>
     <string name="action_lock">Kunci layar</string>

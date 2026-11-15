@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -16,6 +18,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val refreshRunnables = mutableListOf<Runnable>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        scheduleRefreshes()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        refreshRunnables.forEach { handler.removeCallbacks(it) }
+        refreshRunnables.clear()
+    }
+
+    /**
+     * Status diperbarui beberapa kali setelah resume agar perubahan dari
+     * Pengaturan Aksesibilitas dan reconnect service tertangkap otomatis.
+     */
+    private fun scheduleRefreshes() {
+        refreshRunnables.forEach { handler.removeCallbacks(it) }
+        refreshRunnables.clear()
+        for (delayMs in longArrayOf(500, 1500, 3000, 5000)) {
+            val r = Runnable { updateStatus() }
+            refreshRunnables.add(r)
+            handler.postDelayed(r, delayMs)
+        }
         updateStatus()
     }
 
@@ -37,7 +63,12 @@ class MainActivity : AppCompatActivity() {
     private fun testPanel() {
         val shown = TombolkuService.requestShowPanel()
         if (!shown) {
-            Toast.makeText(this, R.string.tile_service_not_ready, Toast.LENGTH_LONG).show()
+            val msg = if (isServiceEnabled()) {
+                R.string.status_enabled_not_connected
+            } else {
+                R.string.tile_service_not_ready
+            }
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -75,6 +106,12 @@ class MainActivity : AppCompatActivity() {
         val enabled = isServiceEnabled()
         val connected = TombolkuService.isConnected
 
+        val raw = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: "(kosong)"
+        findViewById<TextView>(R.id.diagText).text = getString(R.string.diag_line, raw)
+
         val dot = findViewById<View>(R.id.statusDot)
         val text = findViewById<TextView>(R.id.statusText)
 
@@ -105,7 +142,11 @@ class MainActivity : AppCompatActivity() {
             contentResolver,
             Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
         ) ?: return false
-        val component = ComponentName(this, TombolkuService::class.java).flattenToString()
-        return enabled.split(":").any { it.equals(component, ignoreCase = true) }
+        val component = ComponentName(this, TombolkuService::class.java)
+        val full = component.flattenToString()
+        val shortForm = component.flattenShortToString()
+        return enabled.split(":").any {
+            it.equals(full, ignoreCase = true) || it.equals(shortForm, ignoreCase = true)
+        }
     }
 }
