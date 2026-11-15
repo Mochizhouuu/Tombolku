@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         ) ?: return false
         val component = ComponentName(this, TombolkuService::class.java)
         val full = component.flattenToString()
-        val shortForm = component.flattenShortToString()
+        val shortForm = component.flattenToShortString()
         return enabled.split(":").any {
             it.equals(full, ignoreCase = true) || it.equals(shortForm, ignoreCase = true)
         }
