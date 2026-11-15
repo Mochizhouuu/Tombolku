@@ -37,12 +37,24 @@ jobs:
       - name: Verify APK signature
         run: |
           APK=$(find app/build/outputs/apk/release -name "*.apk" | head -1)
-          echo "APK: $APK"
-          sha256sum "$APK"
-          BUILD_TOOLS="$ANDROID_HOME/build-tools/34.0.0"
-          ls "$ANDROID_HOME/build-tools" || true
           BT=$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)
-          "$ANDROID_HOME/build-tools/$BT/apksigner" verify --print-certs "$APK"
+          APKSIGNER="$ANDROID_HOME/build-tools/$BT/apksigner"
+          HASH=$(sha256sum "$APK" | awk '{print $1}')
+          {
+            echo "## Build info"
+            echo ""
+            echo "- APK: \`$APK\`"
+            echo "- SHA-256: \`$HASH\`"
+            echo ""
+            echo '```'
+            "$APKSIGNER" verify --verbose "$APK"
+            echo '```'
+            echo ""
+            echo '```'
+            "$APKSIGNER" verify --print-certs "$APK"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "SHA-256: $HASH"
 
       - name: Upload APK
         uses: actions/upload-artifact@v6

@@ -3,6 +3,7 @@
     <string name="app_name">Tombolku</string>
     <string name="title">Tombolku</string>
     <string name="subtitle">Aktifkan layanan aksesibilitas, lalu tekan tombol di bawah untuk menambahkan Tombolku ke panel notifikasi</string>
+    <string name="disclosure">Tombolku menggunakan layanan aksesibilitas hanya untuk menampilkan panel kontrol, mengunci layar, dan membuka menu power. Aplikasi ini tidak membaca isi layar, tidak mengumpulkan data, dan tidak memiliki izin internet.</string>
     <string name="open_settings">Buka Pengaturan Aksesibilitas</string>
     <string name="add_tile">Tambahkan Tombolku ke panel notifikasi</string>
     <string name="add_tile_manual">Turunkan panel notifikasi dua kali, pilih Edit (ikon pensil), lalu seret Tombolku ke atas</string>
