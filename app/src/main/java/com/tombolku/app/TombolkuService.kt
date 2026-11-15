@@ -98,8 +98,8 @@ class TombolkuService : AccessibilityService() {
             PixelFormat.TRANSLUCENT
         )
         params.gravity = Gravity.TOP or Gravity.START
-        params.x = prefs.getFloat(KEY_X, dp(16)).toInt()
-        params.y = prefs.getFloat(KEY_Y, dp(16)).toInt()
+        params.x = prefs.getFloat(KEY_X, dp(16).toFloat()).toInt()
+        params.y = prefs.getFloat(KEY_Y, dp(16).toFloat()).toInt()
         fabParams = params
 
         wm.addView(fabView, params)
