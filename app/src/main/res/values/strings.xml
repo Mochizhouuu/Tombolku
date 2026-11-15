@@ -2,14 +2,17 @@
 <resources>
     <string name="app_name">Tombolku</string>
     <string name="title">Tombolku</string>
-    <string name="subtitle">Aktifkan layanan untuk mulai</string>
+    <string name="subtitle">Aktifkan layanan aksesibilitas, lalu tekan tombol di bawah untuk menambahkan Tombolku ke panel notifikasi</string>
     <string name="open_settings">Buka Pengaturan Aksesibilitas</string>
+    <string name="add_tile">Tambahkan Tombolku ke panel notifikasi</string>
+    <string name="add_tile_manual">Turunkan panel notifikasi dua kali, pilih Edit (ikon pensil), lalu seret Tombolku ke atas</string>
+    <string name="tile_label">Tombolku</string>
+    <string name="tile_service_not_ready">Aktifkan layanan aksesibilitas Tombolku dulu di Pengaturan</string>
     <string name="status_connected">Layanan tersambung</string>
     <string name="status_enabled_not_connected">Layanan aktif tapi gagal tersambung — coba matikan lalu aktifkan lagi</string>
     <string name="status_off">Layanan nonaktif</string>
     <string name="service_summary">Tombolku: pengganti tombol power dan volume</string>
-    <string name="service_desc">Menampilkan tombol melayang untuk mengunci layar, membuka menu power, dan mengatur volume.</string>
-    <string name="fab_desc">Tombol melayang Tombolku</string>
+    <string name="service_desc">Menampilkan panel kontrol untuk mengunci layar, membuka menu power, dan mengatur volume dari ubin Quick Settings.</string>
     <string name="action_lock">Kunci layar</string>
     <string name="action_power">Menu power</string>
     <string name="action_vol_up">Volume naik</string>

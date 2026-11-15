@@ -53,4 +53,13 @@
         android:backgroundTint="@color/accent"
         android:text="@string/open_settings"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnAddTile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#3A3A3A"
+        android:text="@string/add_tile"
+        android:textColor="#FFFFFF" />
 </LinearLayout>
