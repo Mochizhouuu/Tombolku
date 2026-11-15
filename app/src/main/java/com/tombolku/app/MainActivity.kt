@@ -26,19 +26,46 @@ class MainActivity : AppCompatActivity() {
         updateStatus()
     }
 
+    /**
+     * Status yang ditampilkan membedakan:
+     * - Enabled  : layanan tercantum di daftar ENABLED_ACCESSIBILITY_SERVICES.
+     * - Connected: onServiceConnected() TombolkuService berhasil (flag statis).
+     */
     private fun updateStatus() {
-        val enabled = Settings.Secure.getString(
-            contentResolver,
-            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
-        ) ?: ""
-        val component = ComponentName(this, TombolkuService::class.java).flattenToString()
-        val running = enabled.split(":").any { it.equals(component, ignoreCase = true) }
+        val enabled = isServiceEnabled()
+        val connected = TombolkuService.isConnected
 
         val dot = findViewById<View>(R.id.statusDot)
         val text = findViewById<TextView>(R.id.statusText)
-        dot.background?.setTint(
-            ContextCompat.getColor(this, if (running) R.color.status_on else R.color.status_off)
-        )
-        text.setText(if (running) R.string.status_on else R.string.status_off)
+
+        when {
+            enabled && connected -> {
+                dot.background?.setTint(
+                    ContextCompat.getColor(this, R.color.status_on)
+                )
+                text.setText(R.string.status_connected)
+            }
+            enabled -> {
+                dot.background?.setTint(
+                    ContextCompat.getColor(this, R.color.status_error)
+                )
+                text.setText(R.string.status_enabled_not_connected)
+            }
+            else -> {
+                dot.background?.setTint(
+                    ContextCompat.getColor(this, R.color.status_off)
+                )
+                text.setText(R.string.status_off)
+            }
+        }
+    }
+
+    private fun isServiceEnabled(): Boolean {
+        val enabled = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+        val component = ComponentName(this, TombolkuService::class.java).flattenToString()
+        return enabled.split(":").any { it.equals(component, ignoreCase = true) }
     }
 }

@@ -9,6 +9,7 @@
     <color name="ripple">#664CAF50</color>
     <color name="status_on">#4CAF50</color>
     <color name="status_off">#E53935</color>
+    <color name="status_error">#FFA726</color>
     <color name="text_primary">#ECECEC</color>
     <color name="text_secondary">#9E9E9E</color>
     <color name="ic_launcher_background">#1E1E1E</color>

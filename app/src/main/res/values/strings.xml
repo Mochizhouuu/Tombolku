@@ -4,7 +4,8 @@
     <string name="title">Tombolku</string>
     <string name="subtitle">Aktifkan layanan untuk mulai</string>
     <string name="open_settings">Buka Pengaturan Aksesibilitas</string>
-    <string name="status_on">Layanan aktif</string>
+    <string name="status_connected">Layanan tersambung</string>
+    <string name="status_enabled_not_connected">Layanan aktif tapi gagal tersambung — coba matikan lalu aktifkan lagi</string>
     <string name="status_off">Layanan nonaktif</string>
     <string name="service_summary">Tombolku: pengganti tombol power dan volume</string>
     <string name="service_desc">Menampilkan tombol melayang untuk mengunci layar, membuka menu power, dan mengatur volume.</string>
