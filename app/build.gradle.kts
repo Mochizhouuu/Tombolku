@@ -25,6 +25,10 @@ val hasSigning = !keyStoreFile.isNullOrEmpty() &&
     !keyAliasName.isNullOrEmpty() &&
     !keyPassWord.isNullOrEmpty()
 
+if (!hasSigning) {
+    println("::error::Release signing tidak tersedia. Set env KEYSTORE_FILE, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD.")
+}
+
 android {
     namespace = "com.tombolku.app"
     compileSdk = 34
@@ -38,24 +42,23 @@ android {
     }
 
     signingConfigs {
-        if (hasSigning) {
-            create("release") {
-                storeFile = file(keyStoreFile)
-                storePassword = keyStorePassword
-                keyAlias = keyAliasName
-                keyPassword = keyPassWord
-            }
+        create("release") {
+            storeFile = file(keyStoreFile ?: "")
+            storePassword = keyStorePassword ?: ""
+            keyAlias = keyAliasName ?: ""
+            keyPassword = keyPassWord ?: ""
         }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = if (hasSigning) {
-                signingConfigs.getByName("release")
+            if (hasSigning) {
+                signingConfig = signingConfigs.getByName("release")
             } else {
-                println("::warning::Signing tidak tersedia, menggunakan debug key")
-                signingConfigs.getByName("debug")
+                // Fail fast: tanpa release signing, task release gagal dengan
+                // pesan jelas. Tidak ada fallback ke debug key.
+                signingConfig = null
             }
         }
     }

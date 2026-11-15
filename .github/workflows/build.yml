@@ -34,6 +34,16 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
+      - name: Verify APK signature
+        run: |
+          APK=$(find app/build/outputs/apk/release -name "*.apk" | head -1)
+          echo "APK: $APK"
+          sha256sum "$APK"
+          BUILD_TOOLS="$ANDROID_HOME/build-tools/34.0.0"
+          ls "$ANDROID_HOME/build-tools" || true
+          BT=$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)
+          "$ANDROID_HOME/build-tools/$BT/apksigner" verify --print-certs "$APK"
+
       - name: Upload APK
         uses: actions/upload-artifact@v6
         with:
