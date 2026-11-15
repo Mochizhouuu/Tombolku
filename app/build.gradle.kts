@@ -37,8 +37,8 @@ android {
         applicationId = "com.tombolku.app"
         minSdk = 28
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.3"
+        versionCode = 3
+        versionName = "1.4"
     }
 
     signingConfigs {

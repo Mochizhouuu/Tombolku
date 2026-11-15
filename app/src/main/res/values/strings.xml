@@ -6,6 +6,7 @@
     <string name="disclosure">Tombolku menggunakan layanan aksesibilitas hanya untuk menampilkan panel kontrol, mengunci layar, dan membuka menu power. Aplikasi ini tidak membaca isi layar, tidak mengumpulkan data, dan tidak memiliki izin internet.</string>
     <string name="open_settings">Buka Pengaturan Aksesibilitas</string>
     <string name="add_tile">Tambahkan Tombolku ke panel notifikasi</string>
+    <string name="btn_test_panel">Tes buka panel Tombolku</string>
     <string name="add_tile_manual">Turunkan panel notifikasi dua kali, pilih Edit (ikon pensil), lalu seret Tombolku ke atas</string>
     <string name="tile_label">Tombolku</string>
     <string name="tile_service_not_ready">Aktifkan layanan aksesibilitas Tombolku dulu di Pengaturan</string>

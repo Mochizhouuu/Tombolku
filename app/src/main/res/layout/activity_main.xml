@@ -71,4 +71,13 @@
         android:backgroundTint="#3A3A3A"
         android:text="@string/add_tile"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnTestPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#3A3A3A"
+        android:text="@string/btn_test_panel"
+        android:textColor="#FFFFFF" />
 </LinearLayout>

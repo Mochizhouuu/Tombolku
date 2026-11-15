@@ -25,11 +25,20 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
         findViewById<Button>(R.id.btnAddTile).setOnClickListener { requestAddTile() }
+        findViewById<Button>(R.id.btnTestPanel).setOnClickListener { testPanel() }
     }
 
     override fun onResume() {
         super.onResume()
         updateStatus()
+    }
+
+    /** Tes langsung: buka panel lewat service, tanpa lewat ubin QS. */
+    private fun testPanel() {
+        val shown = TombolkuService.requestShowPanel()
+        if (!shown) {
+            Toast.makeText(this, R.string.tile_service_not_ready, Toast.LENGTH_LONG).show()
+        }
     }
 
     /**
