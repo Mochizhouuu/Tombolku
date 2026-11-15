@@ -111,9 +111,13 @@ class MainActivity : AppCompatActivity() {
             Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
         ) ?: "(kosong)"
         val master = try {
-            Settings.Global.getInt(contentResolver, Settings.Global.ACCESSIBILITY_ENABLED)
+            Settings.Global.getInt(contentResolver, "accessibility_enabled")
         } catch (e: Exception) {
-            -1
+            try {
+                Settings.Secure.getInt(contentResolver, "accessibility_enabled")
+            } catch (e: Exception) {
+                -1
+            }
         }
         findViewById<TextView>(R.id.diagText).text = getString(R.string.diag_line, master, raw)
 
