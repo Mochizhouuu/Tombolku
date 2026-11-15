@@ -3,7 +3,7 @@ package com.tombolku.app
 import android.app.StatusBarManager
 import android.content.ComponentName
 import android.content.Intent
-import android.graphics.Icon
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
